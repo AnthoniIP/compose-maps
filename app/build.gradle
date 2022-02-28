@@ -22,9 +22,19 @@ android {
         }
     }
 
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
     buildTypes {
+        debug{
+            minifyEnabled false
+            resValue "string", "maps_api_key", properties.getProperty("MAPS_API_KEY", "")
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+        }
         release {
             minifyEnabled false
+            resValue "string", "maps_api_key", properties.getProperty("MAPS_API_KEY", "")
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
